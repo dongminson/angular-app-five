@@ -1,0 +1,47 @@
+<div>
+  <div class="flex-column">
+    <div *ngIf="isLoading$ | async; else elseBlock">
+      <mat-card class="card">
+        <div class="flex-column">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card>
+    </div>
+    <ng-template #elseBlock>
+      <mat-card class="card">
+        <h1 class="flex-column">Pollster</h1>  
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Question</mat-label>
+          <input type="text" [(ngModel)]="question" matInput>
+        </mat-form-field>
+          <button mat-button color="primary" (click)="onAddAnswers()">+</button>
+        <div *ngFor="let x of answers; let i = index;trackBy:trackByIdx">
+          <div class="flex-row">
+            <mat-form-field class="large-width" appearance="fill">
+              <mat-label>Answer</mat-label>
+              <input type="text" [(ngModel)]="answers[i]" matInput>
+            </mat-form-field>
+            <button (click)="onRemoveAnswer(i)" mat-icon-button color="primary">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="flex-column">
+          <button mat-button color="primary" (click)="onCreate()">Create</button>
+        </div>
+      </mat-card>
+      <div *ngIf="(polls$ | async) as polls">
+        <div *ngFor="let poll of (polls | slice: lowValue : highValue)">
+          <app-poll [(question)]="poll.question" [(answers)]="poll.answers" [poll]="poll" [userId]="(userId$ | async)"></app-poll>
+        </div>
+      </div>
+      <div class="paginator" *ngIf="(polls$ | async) as polls">
+        <mat-paginator class="flex-column" [length]="polls.length"
+          [pageSize]=5
+          [pageSizeOptions]="[5,10,20,30]"
+          (page)="getPaginatorData($event)">
+        </mat-paginator>
+      </div>
+    </ng-template>
+  </div>
+</div>

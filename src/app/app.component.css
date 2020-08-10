@@ -1,0 +1,22 @@
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover, a:active {
+    color: #fff;
+}
+
+.navigation-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.background {
+    background-image: linear-gradient(#3949ab, #303f9f);
+    min-height: 88vh;
+    flex-wrap: wrap;
+    padding-top: 25px;
+    overflow-x: hidden;
+}

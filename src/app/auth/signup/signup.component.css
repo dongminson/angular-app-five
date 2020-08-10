@@ -1,0 +1,48 @@
+.card {
+    max-width: 500px;
+    width: 500px;
+    margin: 0px 5px 20px 5px;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-column-left {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+}
+
+.radio-button {
+    margin-bottom: 12px;
+}
+
+.bar-wrapper {
+    width: 90%;
+    margin: 8px 12px 8px 0px;
+}
+
+.red {
+    background-color: #f44336;
+    height: 24px;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.full-width {
+    width: 100%;
+}
+
+.large-width {
+    width: 90%
+}
+.input {
+    margin: 15px 5px 15px 5px;
+}

@@ -1,0 +1,30 @@
+<section class="full-width">
+    <div class="flex-column">
+        <mat-card class="card">
+            <form
+                (ngSubmit)="onSubmit()">
+                <mat-form-field class="full-width">
+                    <input
+                        type="email"
+                        matInput
+                        placeholder="Your email"
+                        name="email"
+                        [(ngModel)]="email"
+                    >
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input
+                        type="password"
+                        matInput
+                        placeholder="Your password"
+                        name="password"
+                        [(ngModel)]="password"
+                    >
+                </mat-form-field>
+                <div class="flex-column">
+                    <button type="submit" mat-raised-button color="primary">Submit</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</section>

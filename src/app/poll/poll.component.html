@@ -1,0 +1,71 @@
+<div *ngIf="poll">
+    <mat-card class="card">
+        <div *ngIf="edit; else elseBlock1">
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Question</mat-label>
+                <input class="text" [(ngModel)]="question" matInput>
+            </mat-form-field>
+            <button *ngIf="answers && answers.length < 11" mat-button color="primary" (click)="onAddAnswers()">+</button>
+            <div *ngFor="let answer of answers; let i = index; trackBy: trackByIdx">
+                <div class="flex-row">
+                    <mat-form-field class="large-width" appearance="fill">
+                        <mat-label>Answer</mat-label>
+                        <input (ngModelChange)="emitAnswers($event, i)" [ngModel]="answer" matInput>
+                    </mat-form-field>
+                    <button (click)="onRemoveAnswer(i)" mat-icon-button color="primary">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-column">
+                <button mat-button color="primary" (click)="onEdit()">Edit</button>
+            </div>
+        </div>
+        <ng-template #elseBlock1>
+            <div *ngIf="result; else elseBlock2">
+                <h2>{{question}}</h2>
+                <div *ngFor="let answer of answers; let i = index;">
+                    <div class="flex-row">
+                    <span class="bar-wrapper">
+                        <div class="red" [style.width.%]="calculateWidth(i)"></div>
+                    </span>
+                    <span>
+                        {{calculateWidth(i).toFixed(2)}}%
+                    </span>
+                    </div>
+                </div>
+                <div class="flex-column">
+                    <span class="count">Vote Count: {{countTotal()}}</span>
+                </div>
+                <div class="flex-column">
+                    <button mat-button color="primary" (click)="toggleResult()">Back</button>
+                </div>
+            </div>
+            <ng-template #elseBlock2>
+                <h2>{{question}}</h2>
+                <mat-radio-group
+                    aria-labelledby="radio-group-label"
+                    class="radio-group"
+                    [(ngModel)]="selected">
+                    <div class="flex-column-left">
+                        <mat-radio-button class="radio-button" *ngFor="let answer of answers; let i = index" [value]="i">
+                            {{answer}}
+                        </mat-radio-button>
+                    </div>
+                </mat-radio-group>
+                <div class="flex-column">
+                    <button [disabled]="poll.users.includes(userId)" mat-button color="primary" (click)="onSend()">Send</button>
+                    <button mat-button color="primary" (click)="toggleResult()">Results</button>
+                </div>
+            </ng-template>
+        </ng-template>
+            <mat-card-actions>
+                <button [disabled]="poll.author !== userId" (click)="onToggleEdit()" mat-icon-button color="primary">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button [disabled]="poll.author !== userId" (click)="onDelete(poll.id)" mat-icon-button color="primary">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-actions>
+    </mat-card>
+</div>
